@@ -51,12 +51,7 @@ public class TransactionDao {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Transaction transaction = new Transaction();
-                transaction.setId(resultSet.getInt("id"));
-                transaction.setType(TransactionType.valueOf(resultSet.getString("type")));
-                transaction.setAmount(resultSet.getDouble("amount"));
-                transaction.setDescription(resultSet.getString("description"));
-                transaction.setDate(resultSet.getDate("date").toLocalDate());
+                Transaction transaction = getTransaction(resultSet);
                 return transaction;
             }
         } catch (SQLException e) {
@@ -64,6 +59,17 @@ public class TransactionDao {
         }
         return null;
     }
+
+    private Transaction getTransaction(ResultSet resultSet) throws SQLException {
+        Transaction transaction = new Transaction();
+        transaction.setId(resultSet.getInt("id"));
+        transaction.setType(TransactionType.valueOf(resultSet.getString("type")));
+        transaction.setAmount(resultSet.getDouble("amount"));
+        transaction.setDescription(resultSet.getString("description"));
+        transaction.setDate(resultSet.getDate("date").toLocalDate());
+        return transaction;
+    }
+
     public List<Transaction> readAll(TransactionType type) {
         List<Transaction> transactions = new ArrayList<>();
         try {
@@ -72,12 +78,7 @@ public class TransactionDao {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Transaction transaction = new Transaction();
-                transaction.setId(resultSet.getInt("id"));
-                transaction.setType(TransactionType.valueOf(resultSet.getString("type")));
-                transaction.setAmount(resultSet.getDouble("amount"));
-                transaction.setDescription(resultSet.getString("description"));
-                transaction.setDate(resultSet.getDate("date").toLocalDate());
+                Transaction transaction = getTransaction(resultSet);
                 transactions.add(transaction);
             }
             return transactions;
@@ -94,12 +95,7 @@ public class TransactionDao {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Transaction transaction = new Transaction();
-                transaction.setId(resultSet.getInt("id"));
-                transaction.setType(TransactionType.valueOf(resultSet.getString("type")));
-                transaction.setAmount(resultSet.getDouble("amount"));
-                transaction.setDescription(resultSet.getString("description"));
-                transaction.setDate(resultSet.getDate("date").toLocalDate());
+                Transaction transaction = getTransaction(resultSet);
                 transactions.add(transaction);
             }
             return transactions;
