@@ -8,9 +8,9 @@ import java.util.*;
 
 
 public class BudgetApplication {
-    static Transaction transaction = null;
-    static List<Transaction> transactionList;
-    static TransactionDao dao = new TransactionDao();
+    private static Transaction transaction = null;
+    private static List<Transaction> transactionList;
+    private static TransactionDao dao = new TransactionDao();
 
 
     public static void main(String[] args) {
