@@ -1,12 +1,11 @@
 package pl.bogdank.budget;
 
-import pl.bogdank.budget.DAO.TransactionDao;
+import pl.bogdank.budget.dao.TransactionDao;
 import pl.bogdank.budget.model.Transaction;
 import pl.bogdank.budget.model.TransactionType;
 
 import java.util.*;
 
-import static pl.bogdank.budget.UserInteractions.*;
 
 public class BudgetApplication {
     static Transaction transaction = null;
@@ -17,22 +16,22 @@ public class BudgetApplication {
     public static void main(String[] args) {
 
         transactionList = new ArrayList<>();
-
+        UserInteractions ui = new UserInteractions();
         while (true) {
-            switch (displayMenu()) {
+            switch (ui.displayMenu()) {
                     case "1":
-                        transaction = enterTransaction();
+                        transaction = ui.getNewTransactionInputFromUser();
                         dao.create(transaction);
                         break;
                     case "2":
-                        int id = choiceIdTransaction();
+                        int id = ui.choiceIdTransaction();
                         transaction = dao.read(id);
                         showTransactions(transaction);
-                        Transaction newTransaction = enterTransaction(transaction);
-                        dao.update(newTransaction);
+                        Transaction alteredTransaction = ui.getNewTransactionInputFromUser(transaction);
+                        dao.update(alteredTransaction);
                         break;
                     case "3":
-                        dao.delete(choiceIdTransaction());
+                        dao.delete(ui.choiceIdTransaction());
                         break;
                     case "4":
                         showTransactions("przychod");

@@ -16,14 +16,12 @@ public class ConnectionFactory {
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
-            System.out.println("Brak sterownika:" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     public Connection getConnection() throws SQLException {
-        Connection connection = null;
-        connection = DriverManager.getConnection(url, user, password);
-        return connection;
+        return DriverManager.getConnection(url, user, password);
     }
 
     public static ConnectionFactory getInstance() {

@@ -1,4 +1,4 @@
-package pl.bogdank.budget.DAO;
+package pl.bogdank.budget.dao;
 
 import pl.bogdank.budget.factory.ConnectionFactory;
 import pl.bogdank.budget.model.Transaction;
@@ -9,27 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDao {
-    private final static String CREATE = "INSERT INTO transaction(type, description, amount, date) VALUES(?, ?, ?, ?);";
-    private final static String READ = "SELECT id, type, description, amount, date FROM transaction WHERE id=?;";
-    private final static String READ_ALL_TYPE = "SELECT id, type, description, amount, date FROM transaction WHERE type=?;";
-    private final static String READ_ALL = "SELECT id, type, description, amount, date FROM transaction WHERE type=?;";
-    private final static String UPDATE = "UPDATE transaction SET type=?, description=?, amount=?, date=? WHERE id=?;";
-    private final static String DELETE = "DELETE FROM transaction WHERE id=?;";
+    private final static String CREATE = "INSERT INTO transactions(type, description, amount, date) VALUES(?, ?, ?, ?);";
+    private final static String READ = "SELECT id, type, description, amount, date FROM transactions WHERE id=?;";
+    private final static String READ_ALL_TYPE = "SELECT id, type, description, amount, date FROM transactions WHERE type=?;";
+    private final static String READ_ALL = "SELECT id, type, description, amount, date FROM transactions WHERE type=?;";
+    private final static String UPDATE = "UPDATE transactions SET type=?, description=?, amount=?, date=? WHERE id=?;";
+    private final static String DELETE = "DELETE FROM transactions WHERE id=?;";
 
     private Connection connection = null;
 
     public TransactionDao() {
         try {
-            getConnection();
+            connection = getConnection();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private void getConnection() throws SQLException {
-//        Connection connection;
-        connection = ConnectionFactory.getInstance().getConnection();
-//        return connection;
+    private Connection getConnection() throws SQLException {
+        return ConnectionFactory.getInstance().getConnection();
     }
 
     public void create(Transaction transaction) {
@@ -42,7 +40,7 @@ public class TransactionDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -62,7 +60,7 @@ public class TransactionDao {
                 return transaction;
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
@@ -84,7 +82,7 @@ public class TransactionDao {
             }
             return transactions;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
@@ -106,7 +104,7 @@ public class TransactionDao {
             }
             return transactions;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
@@ -123,7 +121,7 @@ public class TransactionDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -135,7 +133,7 @@ public class TransactionDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -143,7 +141,7 @@ public class TransactionDao {
         try {
             connection.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

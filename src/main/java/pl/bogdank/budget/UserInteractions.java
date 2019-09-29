@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserInteractions {
-    public static String displayMenu() {
+
+    public String displayMenu() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("1: Dodanie nowej transakcji");
@@ -21,7 +22,7 @@ public class UserInteractions {
         return sc.nextLine();
     }
 
-    public static Transaction enterTransaction() {
+    public Transaction getNewTransactionInputFromUser() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Podaj typ transakcji (przychod, wydatek):");
         TransactionType type = TransactionType.valueOf(sc.nextLine());
@@ -40,58 +41,58 @@ public class UserInteractions {
         return transaction;
     }
 
-    public static int choiceIdTransaction() {
+    public int choiceIdTransaction() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Podaj ID transakcji :");
         int userChoice = sc.nextInt();
         sc.nextLine();
         return userChoice;
     }
-    public static TransactionType newType() {
+    private TransactionType alteredType() {
         Scanner sc = new Scanner(System.in);
         String type = sc.nextLine();
         return type.equals("") ? null : TransactionType.valueOf(type);
 
     }
 
-    public static String newDescription() {
+    private String alteredDescription() {
         Scanner sc = new Scanner(System.in);
         String description = sc.nextLine();
         return description.equals("") ? null : description;
 
     }
 
-    public static double newAmount() {
+   private double alteredAmount() {
         Scanner sc = new Scanner(System.in);
         String amount = sc.nextLine();
         return amount.equals("") ? 0 : Double.parseDouble(amount);
     }
 
-    public static LocalDate newDate() {
+   private LocalDate alteredDate() {
         Scanner sc = new Scanner(System.in);
         String date = sc.nextLine();
         return date.equals("") ? null : LocalDate.parse(date);
     }
 
-    public static Transaction enterTransaction(Transaction transaction) {
+    public Transaction getNewTransactionInputFromUser(Transaction transaction) {
         System.out.println("Podaj nowy typ transakcji (przychod, wydatek lub <ENTER>) :");
-        TransactionType type = newType();
+        TransactionType type = alteredType();
         if (type != null)
             transaction.setType(type);
 
 
         System.out.println("Podaj nowy opis transakcji (lub <ENTER>) :");
-        String description = newDescription();
+        String description = alteredDescription();
         if (description != null)
             transaction.setDescription(description);
 
         System.out.println("Podaj nową kwotę transakcji (lub <ENTER>) :");
-        double amount = newAmount();
+        double amount = alteredAmount();
         if(amount != 0)
             transaction.setAmount(amount);
 
         System.out.println("Podaj nową datę transakcji (lub <ENTER>) :");
-        LocalDate localDate = newDate();
+        LocalDate localDate = alteredDate();
         if(localDate != null) {
             transaction.setDate(localDate);
         }

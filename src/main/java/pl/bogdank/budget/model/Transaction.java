@@ -3,11 +3,11 @@ package pl.bogdank.budget.model;
 import java.time.LocalDate;
 
 public class Transaction {
-    int id;
-    TransactionType type;
-    String description;
-    Double amount;
-    LocalDate date;
+    private int id;
+    private TransactionType type;
+    private String description;
+    private double amount;
+    private LocalDate date;
 
     public Transaction() {
     }
